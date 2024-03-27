@@ -2,6 +2,8 @@ package br.com.wandersontimoteo.parkapi.web.controller;
 
 import br.com.wandersontimoteo.parkapi.entity.Usuario;
 import br.com.wandersontimoteo.parkapi.service.UsuarioService;
+import br.com.wandersontimoteo.parkapi.web.dto.UsuarioCreateDto;
+import br.com.wandersontimoteo.parkapi.web.dto.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,8 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
-        Usuario user = usuarioService.salvar(usuario);
+    public ResponseEntity<Usuario> create(@RequestBody UsuarioCreateDto usuarioCreateDto) {
+        Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario(usuarioCreateDto));
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
